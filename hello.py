@@ -3,11 +3,11 @@ from random import sample
 from itertools import combinations
 from nctu import nctu_introtext, nctu_readmore
 from weather_test import today_weather, tomorrow_weather, afterTomorrow_weather
+from news import news_result
+from search import search_result
 import os
 
-print(os.environ.get('TELEGRAM_BOT_TOKEN'))
-print (os.environ['WEATHER_API'])
-print (os.environ['TELEGRAM_BOT_TOKEN'])
+
 def valid(s):
     if len(s)!=4:
         return False
@@ -60,9 +60,18 @@ def weather(bot, update):
     today=today_weather()
     tomorrow=tomorrow_weather()
     afterTomorrow=afterTomorrow_weather()
-
     weather_result=today+tomorrow+afterTomorrow
     update.message.reply_text('{}'.format(weather_result))
+def news(bot, update):
+    news_output=news_result()
+    update.message.reply_text('{}'.format(news_output))
+def search(bot, update):
+    text=update.message.text
+    print(text[9:])
+    search_output=search_result(text[7:])
+    update.message.reply_text('{}'.format(search_output))
+
+
 token=os.environ["TELEGRAM_BOT_TOKEN"]    
 updater = Updater(token)
 
@@ -73,6 +82,8 @@ updater.dispatcher.add_handler(CommandHandler('new', new_game))
 updater.dispatcher.add_handler(CommandHandler('guess', guess))
 updater.dispatcher.add_handler(CommandHandler('nctu', nctu))
 updater.dispatcher.add_handler(CommandHandler('weather', weather))
+updater.dispatcher.add_handler(CommandHandler('news', news))
+updater.dispatcher.add_handler(CommandHandler('search', search))
 
 updater.start_polling()
 updater.idle()

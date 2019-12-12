@@ -1,7 +1,9 @@
 # https://medium.com/@aakankshaws/using-beautifulsoup-requests-to-scrape-weather-data-9c6e9d317800
 import requests
-page = requests.get("https://weather.com/zh-TW/weather/tenday/l/TWXX0021:1:TW")
 from bs4 import BeautifulSoup
+
+url="https://weather.com/zh-TW/weather/tenday/l/TWXX0021:1:TW"
+page = requests.get(url)
 soup=BeautifulSoup(page.content,"html.parser")
 all=soup.find("div",{"class":"locations-title ten-day-page-title"}).find("h1").text
 table=soup.find_all("table",{"class":"twc-table"})
@@ -33,8 +35,8 @@ def today_weather():
     today_weather_str='\n「今天」天氣：'+get_weather_string(0)
     return today_weather_str
 def tomorrow_weather():
-    tomorrow_weather_str='\n「明天」天氣: '+get_weather_string(1)
+    tomorrow_weather_str='\n\n「明天」天氣: '+get_weather_string(1)
     return tomorrow_weather_str
 def afterTomorrow_weather():
-    afterTomorrow_weather_str='\n「後天」天氣:'+get_weather_string(2)
+    afterTomorrow_weather_str='\n\n「後天」天氣:'+get_weather_string(2) +'\n'+url
     return afterTomorrow_weather_str
