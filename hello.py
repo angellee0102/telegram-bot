@@ -5,6 +5,8 @@ from nctu import nctu_introtext, nctu_readmore
 from weather_test import today_weather, tomorrow_weather, afterTomorrow_weather
 from news import news_result
 from search import search_result
+from stock import stock_result
+from dictionary import dictionary_result
 import os
 
 
@@ -67,9 +69,21 @@ def news(bot, update):
     update.message.reply_text('{}'.format(news_output))
 def search(bot, update):
     text=update.message.text
-    print(text[9:])
+    # print(text[9:])
     search_output=search_result(text[7:])
     update.message.reply_text('{}'.format(search_output))
+def stock(bot, update):
+    text=update.message.text
+    print(text[7:])
+    stock_output=stock_result(text[7:])
+    print(stock_output)
+    update.message.reply_text('{}'.format(stock_output))
+def define(bot, update):
+    text=update.message.text
+    print(text[8:])
+    define_output=dictionary_result(text[8:])
+    print(define_output)
+    update.message.reply_text('{}'.format(define_output))
 
 
 token=os.environ["TELEGRAM_BOT_TOKEN"]    
@@ -84,6 +98,8 @@ updater.dispatcher.add_handler(CommandHandler('nctu', nctu))
 updater.dispatcher.add_handler(CommandHandler('weather', weather))
 updater.dispatcher.add_handler(CommandHandler('news', news))
 updater.dispatcher.add_handler(CommandHandler('search', search))
+updater.dispatcher.add_handler(CommandHandler('stock', stock))
+updater.dispatcher.add_handler(CommandHandler('define', define))
 
 updater.start_polling()
 updater.idle()
