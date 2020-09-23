@@ -16,3 +16,7 @@
   - returns the definition of the input term 
   - would suggest another term if the input doesn't match an existing word or phrase, example as below.
    ![](https://i.imgur.com/xGhnm4F.png)
+
+
+-----------
+### Demo Video [youtube link](https://youtu.be/4PCQLHj00Qk)
